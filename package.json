@@ -1,0 +1,55 @@
+{
+  "name": "can-interrupt",
+  "version": "0.0.1",
+  "description": "Plugin for CanJS that allows you to interrupt the setting of a property (or properties) on can.Map in a transaction.",
+  "scripts": {
+    "build": "node ./stealBuild.js",
+    "test": "testee --browsers firefox can-interrupt.test.html",
+    "prepublish": "npm run build",
+    "publish": "git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "document": "documentjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/canjs/can-interrupt.git"
+  },
+  "keywords": [
+    "Interrupt",
+    "plugin",
+    "canjs"
+  ],
+  "author": "Bitovi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/canjs/can-interrupt/issues"
+  },
+  "homepage": "https://github.com/canjs/can-interrupt",
+  "devDependencies": {
+    "documentjs": "^0.3.0-pre.5",
+    "jquery": "^2.1.4",
+    "steal": "^0.10.5",
+    "steal-qunit": "0.0.4",
+    "steal-tools": "^0.11.0-pre.1",
+    "testee": "^0.2.0",
+    "can": "^2.3.0-pre.10"
+  },
+  "browser": {
+    "./can-interrupt": "./dist/cjs/can-interrupt/can-interrupt"
+  },
+  "system": {
+    "ignoreBrowser": true,
+    "npmIgnore": [
+      "documentjs"
+    ],
+    "npmDependencies": [
+      "steal-qunit"
+    ],
+    "directories": {
+      "lib": "can-interrupt"
+    },
+    "transpiler": "babel"
+  }
+}

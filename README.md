@@ -6,7 +6,7 @@ change, present the user with a confirmation prompt notifying them of their unsa
 want to proceed and lose their changes, or stay on the page and save their changes. In fact, Can Interrupt was designed
 with this use case in mind. A few examples will illustrate the use of Can Interrupt.
 
-##Using Can Interrupt
+## Using Can Interrupt
 Setting up a can.Map to use Can Interrupt involves the following steps:
 
 1. Bind the can.Map to the `changing` event:
@@ -37,7 +37,7 @@ in to the callback function contains `pause`, `resume`, and `cancel` methods you
 If you are using Can Interrupt with can.route, you do not need this step. All you need to do is bind the route to the
 `changing` event, as described in step 1, above. Can Interrupt will manage wrapping route changes in a transaction for you.
 
-##Examples
+## Examples
 
 1. Use with a standard can.Map. In this example Can Interrupt inspects the properties being set, and if the 
 name property is among the properties being set, it cancels the transaction, and reverts the changes to the
@@ -122,16 +122,16 @@ can.Map:
 
 ```
 
-##Methods
+## Methods
 
 Can Interrupt provides the following methods:
 
-###can.transaction
+### can.transaction
 
 1. `can.transaction.start` Used to begin a transaction set. Once you have called the `start` method, all changes to watched can.Maps will be tracked.  
 2. `can.transaction.stop` Used to end a transaction set. Once you call the `stop` method, the changes to watched can.Maps will either be committed or ignored and no further changes will be tracked.
 
-###can.transaction event object
+### can.transaction event object
 When you bind a can.Map, or can.route to the `changing` event, your event handler will receive an `event` object. This object has the following methods:
 
 1. `pause` Used to pause the setting of the values of the can.Map until either the `resume` or `cancel` methods have been called.

@@ -3,8 +3,6 @@ import can from 'can';
 import './can-interrupt';
 import 'steal-qunit';
 
-//TODO: Add tests with pausing
-
 var Recipe = can.Map.extend({});
 
 asyncTest('changes don\'t set when cancelled - remove', function () {
@@ -61,6 +59,37 @@ asyncTest('changes set on resume - remove', function () {
     equal(recipe.attr('salt'), 'sea', 'Property SET');
 
 });
+
+
+asyncTest('pause', function () {
+    var recipe = new Recipe({
+        name: 'cheese',
+        level: 'hard',
+        type: 'dairy'
+    });
+
+    recipe.bind("changing", function (event) {
+        var mapProperty = event.args[0];
+        if (mapProperty === 'name') {
+            event.pause(function(){
+                event.cancel();
+                start();
+            });
+        }
+    });
+
+    can.transaction.start();
+    recipe.attr('level', 'easy');
+    recipe.removeAttr('name');
+    recipe.attr('type', 'cream');
+    can.transaction.stop();
+
+    equal(recipe.attr('name'), 'cheese', 'Property NOT SET');
+    equal(recipe.attr('level'), 'hard', 'Property NOT SET');
+    equal(recipe.attr('type'), 'dairy', 'Property NOT SET');
+
+});
+
 
 asyncTest('changes don\'t set when cancelled - change', function () {
     var recipe = new Recipe({

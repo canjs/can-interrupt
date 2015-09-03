@@ -4,7 +4,7 @@
   "description": "Plugin for CanJS that allows you to interrupt the setting of a property (or properties) on can.Map in a transaction.",
   "scripts": {
     "build": "node ./stealBuild.js",
-    "test": "testee --browsers firefox can-interrupt/test.html",
+    "test": "testee --browsers firefox src/test.html",
     "prepublish": "npm run build",
     "publish": "git push origin --tags",
     "release:patch": "npm version patch && npm publish",

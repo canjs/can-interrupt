@@ -3,7 +3,7 @@ var stealTools = require("steal-tools");
 stealTools.export({
     system: {
         config: "package.json!npm",
-        main: "can-interrupt.build"
+        main: "src/can-interrupt"
     },
     options: {
         sourceMaps: true

@@ -32,7 +32,6 @@ asyncTest('changes don\'t set when cancelled - remove', function () {
 
 });
 
-
 asyncTest('changes set on resume - remove', function () {
     var recipe = new Recipe({
         cups: 10,
@@ -59,7 +58,6 @@ asyncTest('changes set on resume - remove', function () {
     equal(recipe.attr('salt'), 'sea', 'Property SET');
 
 });
-
 
 asyncTest('pause', function () {
     var recipe = new Recipe({
@@ -90,7 +88,6 @@ asyncTest('pause', function () {
 
 });
 
-
 asyncTest('changes don\'t set when cancelled - change', function () {
     var recipe = new Recipe({
         name: 'cheese',
@@ -117,7 +114,6 @@ asyncTest('changes don\'t set when cancelled - change', function () {
     equal(recipe.attr('type'), 'dairy', 'Property NOT SET');
 
 });
-
 
 asyncTest('changes set on resume - change', function () {
     var recipe = new Recipe({
@@ -163,31 +159,6 @@ test('changes set without interrupt', function () {
     equal(recipe.attr('cups'), 235, 'Property SET');
     equal(recipe.attr('flour'), false, 'Property SET');
     equal(recipe.attr('salt'), 'sea', 'Property SET');
-
-});
-
-asyncTest('transaction only applies to a single map', function () {
-    var recipe = new Recipe({
-        name: 'cheese1'
-    });
-
-    var TestItem = can.Map.extend({
-        name: 'cheese2'
-    });
-    var testItem = new TestItem();
-
-    recipe.bind("changing", function (event) {
-        event.cancel();
-        start();
-    });
-
-    can.transaction.start();
-    testItem.attr('name', 'toasted cheese');
-    recipe.attr('name', 'gravy');
-    can.transaction.stop();
-
-    equal(recipe.attr('name'), 'cheese1', 'Property NOT SET');
-    equal(testItem.attr('name'), 'toasted cheese', 'Property SET');
 
 });
 

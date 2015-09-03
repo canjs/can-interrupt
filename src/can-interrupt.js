@@ -194,7 +194,7 @@ can.extend(can.Map.prototype, {
     }
 });
 
-if (can.route) {
+if (can.route && can.route.batch) {
     can.route.batch = can.transaction;
 }
 

@@ -2,6 +2,7 @@
 import can from 'can';
 import './can-interrupt';
 import 'steal-qunit';
+import 'can/map/define/';
 
 var Recipe = can.Map.extend({});
 
@@ -162,4 +163,33 @@ test('changes set without interrupt', function () {
 
 });
 
+if(can.route.batch) {
+    asyncTest('can.route can be interrupted', function() {
 
+        var AppState = can.Map.extend({
+            define: {
+                flour: {
+                    value: "true",
+                    serialize: false
+                }
+            }
+        });
+        var appState = new AppState();
+
+        can.route.map(appState);
+        can.route.bind("changing", function(event){
+            var mapProperty = event.args[1];
+            if (mapProperty === 'flour') {
+                event.cancel();
+                start();
+            }
+        });
+        can.route(':flour');
+        can.route.ready();
+
+        location.hash = "#!flour=false";
+
+        equal(can.route.attr('flour'), "true", 'Property SET');
+
+    });
+}

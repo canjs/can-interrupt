@@ -189,7 +189,7 @@ if(can.route.batch) {
 
         location.hash = "#!flour=false";
 
-        equal(can.route.attr('flour'), "true", 'Property SET');
+        equal(can.route.attr('flour'), "true", 'Property NOT SET');
 
     });
 }

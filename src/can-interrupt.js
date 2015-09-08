@@ -155,7 +155,7 @@ var oldRemove = mapProto._remove;
 
 can.extend(can.Map.prototype, {
     _isTransactionChangeEvent: function () {
-        return this.__bindEvents && this.__bindEvents.changing && can.transaction.isInATransaction;
+        return this.__bindEvents && this.__bindEvents.changing && this.__bindEvents.changing.length && can.transaction.isInATransaction;
     },
     _remove: function (prop, current) {
         var that = this;

@@ -43,7 +43,9 @@
   "system": {
     "ignoreBrowser": true,
     "npmIgnore": [
-      "documentjs"
+      "documentjs",
+      "testee",
+      "steal-tools"
     ],
     "npmDependencies": [
       "steal-qunit"

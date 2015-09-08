@@ -1,6 +1,6 @@
 {
   "name": "can-interrupt",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Plugin for CanJS that allows you to interrupt the setting of a property (or properties) on can.Map in a transaction.",
   "scripts": {
     "build": "node ./stealBuild.js",
@@ -27,6 +27,7 @@
     "url": "https://github.com/canjs/can-interrupt/issues"
   },
   "homepage": "https://github.com/canjs/can-interrupt",
+  "main": "./can-interrupt",
   "devDependencies": {
     "documentjs": "^0.3.0-pre.5",
     "jquery": "^2.1.4",

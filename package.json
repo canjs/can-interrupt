@@ -19,7 +19,8 @@
   "keywords": [
     "Interrupt",
     "plugin",
-    "canjs"
+    "canjs",
+    "can-plugin"
   ],
   "author": "Bitovi",
   "license": "MIT",

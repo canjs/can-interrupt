@@ -1,9 +1,0 @@
-{
-  "sites": {
-    "docs": {
-      "glob": "**/*.{js,md}",
-      "dest": "./docs",
-      "parent": "can-interrupt-library"
-    }
-  }
-}

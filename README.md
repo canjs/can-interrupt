@@ -1,4 +1,6 @@
 # can-interrupt
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/canjs/can-interrupt.svg)](https://greenkeeper.io/)
 can-interrupt allows you to interrupt the setting of a property (or properties) on can.Map in a transaction. One use case 
 of this is interrupting the setting of an AppState on route change when a user is attempting to leave a page with 
 unsaved changes. By interrupting the setting of the route in a transaction, you can interrupt the application's state

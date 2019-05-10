@@ -6,7 +6,8 @@ import 'can/map/define/';
 
 var Recipe = can.Map.extend({});
 
-asyncTest('changes don\'t set when cancelled - remove', function () {
+QUnit.test('changes don\'t set when cancelled - remove', function(assert) {
+    var ready = assert.async();
     var recipe = new Recipe({
         name: 'cheese',
         level: 'hard',
@@ -17,7 +18,7 @@ asyncTest('changes don\'t set when cancelled - remove', function () {
         var mapProperty = event.args[0];
         if (mapProperty === 'name') {
             event.cancel();
-            start();
+            ready();
         }
     });
 
@@ -27,13 +28,13 @@ asyncTest('changes don\'t set when cancelled - remove', function () {
     recipe.attr('type', 'cream');
     can.transaction.stop();
 
-    equal(recipe.attr('name'), 'cheese', 'Property NOT SET');
-    equal(recipe.attr('level'), 'hard', 'Property NOT SET');
-    equal(recipe.attr('type'), 'dairy', 'Property NOT SET');
-
+    assert.equal(recipe.attr('name'), 'cheese', 'Property NOT SET');
+    assert.equal(recipe.attr('level'), 'hard', 'Property NOT SET');
+    assert.equal(recipe.attr('type'), 'dairy', 'Property NOT SET');
 });
 
-asyncTest('changes set on resume - remove', function () {
+QUnit.test('changes set on resume - remove', function(assert) {
+    var ready = assert.async();
     var recipe = new Recipe({
         cups: 10,
         flour: true,
@@ -44,7 +45,7 @@ asyncTest('changes set on resume - remove', function () {
         var mapProperty = event.args[0];
         if (mapProperty === 'flour') {
             event.resume();
-            start();
+            ready();
         }
     });
 
@@ -54,13 +55,13 @@ asyncTest('changes set on resume - remove', function () {
     recipe.attr('salt', 'sea');
     can.transaction.stop();
 
-    equal(recipe.attr('cups'), 235, 'Property SET');
-    equal(recipe.attr('flour'), undefined, 'Property SET');
-    equal(recipe.attr('salt'), 'sea', 'Property SET');
-
+    assert.equal(recipe.attr('cups'), 235, 'Property SET');
+    assert.equal(recipe.attr('flour'), undefined, 'Property SET');
+    assert.equal(recipe.attr('salt'), 'sea', 'Property SET');
 });
 
-asyncTest('pause', function () {
+QUnit.test('pause', function(assert) {
+    var ready = assert.async();
     var recipe = new Recipe({
         name: 'cheese',
         level: 'hard',
@@ -72,7 +73,7 @@ asyncTest('pause', function () {
         if (mapProperty === 'name') {
             event.pause(function(){
                 event.cancel();
-                start();
+                ready();
             });
         }
     });
@@ -83,13 +84,13 @@ asyncTest('pause', function () {
     recipe.attr('type', 'cream');
     can.transaction.stop();
 
-    equal(recipe.attr('name'), 'cheese', 'Property NOT SET');
-    equal(recipe.attr('level'), 'hard', 'Property NOT SET');
-    equal(recipe.attr('type'), 'dairy', 'Property NOT SET');
-
+    assert.equal(recipe.attr('name'), 'cheese', 'Property NOT SET');
+    assert.equal(recipe.attr('level'), 'hard', 'Property NOT SET');
+    assert.equal(recipe.attr('type'), 'dairy', 'Property NOT SET');
 });
 
-asyncTest('changes don\'t set when cancelled - change', function () {
+QUnit.test('changes don\'t set when cancelled - change', function(assert) {
+    var ready = assert.async();
     var recipe = new Recipe({
         name: 'cheese',
         level: 'hard',
@@ -100,7 +101,7 @@ asyncTest('changes don\'t set when cancelled - change', function () {
         var mapProperty = event.args[1];
         if (mapProperty === 'name') {
             event.cancel();
-            start();
+            ready();
         }
     });
 
@@ -110,13 +111,13 @@ asyncTest('changes don\'t set when cancelled - change', function () {
     recipe.attr('type', 'cream');
     can.transaction.stop();
 
-    equal(recipe.attr('name'), 'cheese', 'Property NOT SET');
-    equal(recipe.attr('level'), 'hard', 'Property NOT SET');
-    equal(recipe.attr('type'), 'dairy', 'Property NOT SET');
-
+    assert.equal(recipe.attr('name'), 'cheese', 'Property NOT SET');
+    assert.equal(recipe.attr('level'), 'hard', 'Property NOT SET');
+    assert.equal(recipe.attr('type'), 'dairy', 'Property NOT SET');
 });
 
-asyncTest('changes set on resume - change', function () {
+QUnit.test('changes set on resume - change', function(assert) {
+    var ready = assert.async();
     var recipe = new Recipe({
         cups: 10,
         flour: true,
@@ -127,7 +128,7 @@ asyncTest('changes set on resume - change', function () {
         var mapProperty = event.args[1];
         if (mapProperty === 'flour') {
             event.resume();
-            start();
+            ready();
         }
     });
 
@@ -137,13 +138,12 @@ asyncTest('changes set on resume - change', function () {
     recipe.attr('salt', 'sea');
     can.transaction.stop();
 
-    equal(recipe.attr('cups'), 235, 'Property SET');
-    equal(recipe.attr('flour'), 'true', 'Property SET');
-    equal(recipe.attr('salt'), 'sea', 'Property SET');
-
+    assert.equal(recipe.attr('cups'), 235, 'Property SET');
+    assert.equal(recipe.attr('flour'), 'true', 'Property SET');
+    assert.equal(recipe.attr('salt'), 'sea', 'Property SET');
 });
 
-test('changes set without interrupt', function () {
+QUnit.test('changes set without interrupt', function(assert) {
 
     var recipe = new Recipe({
         cups: 10,
@@ -157,14 +157,15 @@ test('changes set without interrupt', function () {
     recipe.attr('salt', 'sea');
     can.transaction.stop();
 
-    equal(recipe.attr('cups'), 235, 'Property SET');
-    equal(recipe.attr('flour'), false, 'Property SET');
-    equal(recipe.attr('salt'), 'sea', 'Property SET');
+    assert.equal(recipe.attr('cups'), 235, 'Property SET');
+    assert.equal(recipe.attr('flour'), false, 'Property SET');
+    assert.equal(recipe.attr('salt'), 'sea', 'Property SET');
 
 });
 
 if(can.route.batch) {
-    asyncTest('can.route can be interrupted', function() {
+    QUnit.test('can.route can be interrupted', function(assert) {
+        var ready = assert.async();
 
         var AppState = can.Map.extend({
             define: {
@@ -181,7 +182,7 @@ if(can.route.batch) {
             var mapProperty = event.args[1];
             if (mapProperty === 'flour') {
                 event.cancel();
-                start();
+                ready();
             }
         });
         can.route(':flour');
@@ -189,7 +190,6 @@ if(can.route.batch) {
 
         location.hash = "#!flour=false";
 
-        equal(can.route.attr('flour'), "true", 'Property NOT SET');
-
+        assert.equal(can.route.attr('flour'), "true", 'Property NOT SET');
     });
 }
